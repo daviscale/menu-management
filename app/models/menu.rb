@@ -9,4 +9,5 @@
 #  updated_at  :datetime         not null
 #
 class Menu < ApplicationRecord
+  has_many :menu_items
 end
