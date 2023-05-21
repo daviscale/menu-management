@@ -1,24 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Dependencies
 
-Things you may want to cover:
+Running this application on a development workstation requires Docker Desktop.
 
-* Ruby version
+It has been tested in the following environment:
 
-* System dependencies
+- Windows 10.0.19044 N/A Build 19044
+- Ubuntu 22.04.2 via WSL version 1.2.5.0
+- Docker Desktop 4.14.0
 
-* Configuration
+## Initial Setup
 
-* Database creation
+```
+# .env.example contains local DB settings. Create the .env file that is not
+# checked in to version control
+cp .env.example .env
 
-* Database initialization
+# build the docker image used for development and test
+docker-compose build
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# setup the development and test databases
+docker-compose run --rm web bin/rails db:setup
+docker-compose run --rm web bin/rails db:setup RAILS_ENV=test
+```
