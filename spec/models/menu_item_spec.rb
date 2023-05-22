@@ -13,5 +13,15 @@
 require 'rails_helper'
 
 RSpec.describe MenuItem, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#name" do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(300) }
+  end
+
+  describe "#price" do
+    it { is_expected.to validate_presence_of(:price) }
+    it { is_expected.to allow_value(0).for(:price) }
+    it { is_expected.to allow_value(10.50).for(:price) }
+    it { is_expected.to_not allow_value(-1).for(:price) }
+  end
 end

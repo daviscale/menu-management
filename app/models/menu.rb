@@ -10,4 +10,7 @@
 #
 class Menu < ApplicationRecord
   has_many :menu_items
+
+  validates :name, length: { maximum: 300 }
+  validates :name, presence: true
 end
