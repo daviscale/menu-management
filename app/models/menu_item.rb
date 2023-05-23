@@ -6,7 +6,6 @@
 #  name        :text             not null
 #  description :text
 #  price       :decimal(10, 2)   not null
-#  menu_id     :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
