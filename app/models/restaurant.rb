@@ -9,4 +9,7 @@
 #
 class Restaurant < ApplicationRecord
   has_many :menus
+
+  validates :name, length: { maximum: 300 }
+  validates :name, presence: true
 end
