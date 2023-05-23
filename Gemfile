@@ -49,5 +49,6 @@ group :development do
 end
 
 group :test do
+  gem "factory_bot", "~> 6.2"
   gem 'shoulda-matchers', '~> 5.0'
 end
