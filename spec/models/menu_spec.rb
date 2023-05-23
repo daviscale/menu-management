@@ -19,21 +19,13 @@ RSpec.describe Menu, type: :model do
 
   describe "associations" do
     let(:menu) { FactoryBot.create(:menu) }
-    let(:menu_item_0) { FactoryBot.create(:menu_item) }
-    let(:menu_item_1) { FactoryBot.create(:menu_item) }
-    let(:menu_item_2) { FactoryBot.create(:menu_item) }
-
-    before do
-      menu.menu_items << menu_item_0
-      menu.menu_items << menu_item_1
-      menu.menu_items << menu_item_2
-    end
 
     it "has multiple MenuItems" do
-      expect(menu.menu_items.size).to eq(3)
-      expect(menu.menu_items[0]).to eq(menu_item_0)
-      expect(menu.menu_items[1]).to eq(menu_item_1)
-      expect(menu.menu_items[2]).to eq(menu_item_2)
+      expect(menu.menu_items.size).to eq(10)
+    end
+
+    it "belongs to Restaurant" do
+      expect(menu.restaurant).to be_a Restaurant
     end
   end
 end

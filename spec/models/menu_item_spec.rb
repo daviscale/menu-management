@@ -27,8 +27,8 @@ RSpec.describe MenuItem, type: :model do
   describe "associations" do
     let(:menu_item) { FactoryBot.create(:menu_item) }
 
-    it "belongs to Menu" do
-      expect(menu_item.menu).to be_a Menu
+    it "has many Menus" do
+      expect(menu_item.menus.size).to eq(3)
     end
   end
 end

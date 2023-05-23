@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 class MenuItem < ApplicationRecord
-  belongs_to :menu
+  has_and_belongs_to_many :menus
 
   validates :name, length: { maximum: 300 }
   validates :name, :price, presence: true
