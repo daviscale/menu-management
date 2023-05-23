@@ -24,4 +24,12 @@ RSpec.describe MenuItem, type: :model do
     it { is_expected.to allow_value(10.50).for(:price) }
     it { is_expected.to_not allow_value(-1).for(:price) }
   end
+
+  describe "associations" do
+    let(:menu_item) { FactoryBot.create(:menu_item) }
+
+    it "belongs to Menu" do
+      expect(menu_item.menu).to be_a Menu
+    end
+  end
 end
