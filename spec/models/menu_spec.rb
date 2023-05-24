@@ -17,6 +17,10 @@ RSpec.describe Menu, type: :model do
     it { is_expected.to validate_length_of(:name).is_at_most(300) }
   end
 
+  describe "#restaurant" do
+    it { is_expected.to validate_presence_of(:restaurant) }
+  end
+
   describe "associations" do
     let(:menu) { FactoryBot.create(:menu) }
 

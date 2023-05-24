@@ -14,5 +14,5 @@ class Menu < ApplicationRecord
   has_and_belongs_to_many :menu_items
 
   validates :name, length: { maximum: 300 }
-  validates :name, presence: true
+  validates :name, :restaurant, presence: true
 end
