@@ -12,6 +12,8 @@ It has been tested in the following environment:
 
 ## Initial Setup
 
+Execute the following in a terminal window:
+
 ```
 # .env.example contains local DB settings. Create the .env file that is not
 # checked in to version control
@@ -23,4 +25,12 @@ docker-compose build
 # setup the development and test databases
 docker-compose run --rm web bin/rails db:setup
 docker-compose run --rm web bin/rails db:setup RAILS_ENV=test
+```
+
+## Data Import
+
+Example restaurant, menu, and menu item data is stored in `resources/restaurant_data.json`. To import the data into the development database, run the `import` Rake task with:
+
+```
+docker-compose run --rm web bin/rake "import[./resources/restaurant_data.json]"
 ```
