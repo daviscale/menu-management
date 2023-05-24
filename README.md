@@ -2,7 +2,7 @@
 
 ## Development Dependencies
 
-Running this application on a development workstation requires Docker Desktop. It should work on any MacOS computer or any Windows computer with the Windows Subsystem for Linux (WSL). However, it has only been tested in the following environment:
+If Docker Desktop is installed, this application should work on any MacOS computer or any Windows computer with the Windows Subsystem for Linux (WSL). However, it has only been tested in the following environment:
 
 - Windows 10.0.19044 N/A Build 19044
 - Ubuntu 22.04.2 via WSL version 1.2.5.0
