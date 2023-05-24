@@ -8,6 +8,7 @@ RSpec.describe Importer do
   let(:menu_item_price) { Random.rand(200.0) }
 
   let(:restaurant) { FactoryBot.create(:restaurant) }
+  let(:menu) { FactoryBot.create(:menu) }
 
   let(:menu_items) do
     [
@@ -107,37 +108,39 @@ RSpec.describe Importer do
   describe "#import_menu_item" do
     context "when validation is successful" do
       it "returns a new MenuItem" do
-        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price)
+        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price, menu)
         expect(menu_item).to be_a MenuItem
         expect(menu_item.name).to eq(menu_item_name)
         expect(menu_item.price).to be_within(0.01).of(menu_item_price)
+        expect(menu_item.menus.size).to eq(1)
+        expect(menu_item.menus.first).to eq(menu)
       end
 
       it "creates a new MenuItem" do
-        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price)
+        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price, menu)
         expect(MenuItem.find(menu_item.id)).to eq(menu_item)
       end
 
       it "logs a success message" do
         expect(importer).to receive(:log_success)
-        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price)
+        menu_item = importer.send(:import_menu_item, menu_item_name, menu_item_price, menu)
       end
     end
 
     context "when validation is unsuccessful" do
       it "returns nil" do
-        menu_item = importer.send(:import_menu_item, nil, nil)
+        menu_item = importer.send(:import_menu_item, nil, nil, menu)
         expect(menu_item).to be_nil
       end
 
       it "does not create a MenuItem" do
         expect(MenuItem).to receive(:create!).and_raise(ActiveRecord::RecordInvalid)
-        menu_item = importer.send(:import_menu_item, nil, nil)
+        menu_item = importer.send(:import_menu_item, nil, nil, nil)
       end
 
       it "logs a failure message" do
         expect(importer).to receive(:log_failure)
-        menu_item = importer.send(:import_menu_item, nil, nil)
+        menu_item = importer.send(:import_menu_item, nil, nil, menu)
       end
     end
   end
@@ -145,9 +148,9 @@ RSpec.describe Importer do
   describe "#import_menu_items" do
     it "calls #import_menu_item for each item in the array" do
       (0..1).each do |i|
-        expect(importer).to receive(:import_menu_item).with(menu_items[i]["name"], menu_items[i]["price"])
+        expect(importer).to receive(:import_menu_item).with(menu_items[i]["name"], menu_items[i]["price"], menu)
       end
-      importer.send(:import_menu_items, menu_items)
+      importer.send(:import_menu_items, menu_items, menu)
     end
   end
 
@@ -158,7 +161,7 @@ RSpec.describe Importer do
     end
 
     it "calls #import_menu_items" do
-      expect(importer).to receive(:import_menu_items).with(menu_hash["menu_items"])
+      expect(importer).to receive(:import_menu_items)
       importer.send(:import_menu_and_menu_items, restaurant, menu_hash)
     end
   end

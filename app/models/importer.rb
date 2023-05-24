@@ -26,12 +26,12 @@ class Importer
 
   def import_menu_and_menu_items(restaurant, menu_hash)
     menu = import_menu(restaurant, menu_hash["name"])
-    import_menu_items(menu_hash["menu_items"] || menu_hash["dishes"]) if menu
+    import_menu_items(menu_hash["menu_items"] || menu_hash["dishes"], menu) if menu
   end
 
-  def import_menu_items(menu_items)
+  def import_menu_items(menu_items, menu)
     menu_items.uniq { |h| h["name"] }.each do |menu_item_hash|
-      import_menu_item(menu_item_hash["name"], menu_item_hash["price"])
+      import_menu_item(menu_item_hash["name"], menu_item_hash["price"], menu)
     end
   end
 
@@ -47,9 +47,9 @@ class Importer
     end
   end
 
-  def import_menu_item(name, price)
+  def import_menu_item(name, price, menu)
     import_model(MenuItem) do
-      MenuItem.create!(name: name, price: price)
+      MenuItem.create!(name: name, price: price, menus: [menu])
     end
   end
 
