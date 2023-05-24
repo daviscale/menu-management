@@ -22,7 +22,6 @@ docker-compose build
 
 # setup the development and test databases
 docker-compose run --rm web bin/rails db:setup
-docker-compose run --rm web bin/rails db:setup RAILS_ENV=test
 ```
 
 ## Running Tests
