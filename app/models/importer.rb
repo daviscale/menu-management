@@ -30,7 +30,7 @@ class Importer
   end
 
   def import_menu_items(menu_items)
-    menu_items.each do |menu_item_hash|
+    menu_items.uniq { |h| h["name"] }.each do |menu_item_hash|
       import_menu_item(menu_item_hash["name"], menu_item_hash["price"])
     end
   end

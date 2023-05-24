@@ -12,7 +12,8 @@ RSpec.describe Importer do
   let(:menu_items) do
     [
       {"name" => Faker::Food.dish, "price" => 23.50},
-      {"name" => Faker::Food.dish, "price" => 12.75}
+      {"name" => "Baked Alaska", "price" => 12.75},
+      {"name" => "Baked Alaska", "price" => 15.75},
     ]
   end
   let(:menu_hash) do
@@ -184,7 +185,7 @@ RSpec.describe Importer do
 
     it "should load all the menu items in the JSON file" do
       importer.import
-      expect(MenuItem.count).to eq(9)
+      expect(MenuItem.count).to eq(8)
     end
   end
 end
