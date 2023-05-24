@@ -7,7 +7,7 @@
 #  description   :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  restaurant_id :bigint
+#  restaurant_id :bigint           not null
 #
 require 'rails_helper'
 
